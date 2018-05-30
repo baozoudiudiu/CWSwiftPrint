@@ -38,10 +38,10 @@ extension Optional: CustomStringConvertible {
             return "Optional(null)"
         case .some(let obj):
             if let obj = obj as? CustomStringConvertible, obj is Dictionary<String, Any> {
-                return "Optional:" + "\((obj as! Dictionary<String, Any>).description)"
+                return "Optional:" + "\((obj as! Dictionary<String, Any>).myDescription(level: 0))"
             }
             if let obj = obj as? CustomStringConvertible, obj is Array<Any> {
-                return "Optional:" + "\((obj as! Array<Any>).description)"
+                return "Optional:" + "\((obj as! Array<Any>).myDescription(level: 0))"
             }
             return  "Optional" + "(\(obj))"
         }
