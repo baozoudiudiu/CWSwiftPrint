@@ -79,7 +79,7 @@ extension Dictionary: LogLevel {
         for (key, value) in self {
             if value is String {
                 let s = value as! String
-                str.append(contentsOf: String.init(format: "%@\t%@ = \"%@\",\n", tab, key as! CVarArg, s.unicodeStr))
+                str.append(contentsOf: String.init(format: "%@\t%@ = \"%@\",\n", tab, key as! CVarArg, s.unicodeStrWith(level: level)))
             }else if value is Dictionary {
                 str.append(contentsOf: String.init(format: "%@\t%@ = %@,\n", tab, key as! CVarArg, (value as! Dictionary).myDescription(level: level + 1)))
             }else if value is Array<Any> {
@@ -94,7 +94,7 @@ extension Dictionary: LogLevel {
 }
 
 extension Array: LogLevel {
-    func myDescription(level: Int = 0) -> String {
+    func myDescription(level: Int) -> String {
         var str = ""
         var tab = ""
         str.append(contentsOf: "[\n")
@@ -104,7 +104,7 @@ extension Array: LogLevel {
         for (_, value) in self.enumerated() {
             if value is String {
                 let s = value as! String
-                str.append(contentsOf: String.init(format: "%@\t\"%@\",\n", tab, s.unicodeStr))
+                str.append(contentsOf: String.init(format: "%@\t\"%@\",\n", tab, s.unicodeStrWith(level: level)))
             }else if value is Dictionary<String, Any> {
                 str.append(contentsOf: String.init(format: "%@\t%@,\n", tab, (value as! Dictionary<String, Any>).myDescription(level: level + 1)))
             }else if value is Array<Any> {
@@ -139,7 +139,18 @@ extension Array: LogLevel {
 
 // MARK: - unicode转码
 extension String {
-    var unicodeStr:String {
+    func unicodeStrWith(level: Int) -> String {
+        let s = self
+        let data = s.data(using: .utf8)
+        if let data = data {
+            if let id = try? JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.allowFragments) {
+                if id is Array<Any> {
+                    return (id as! Array<Any>).myDescription(level: level + 1)
+                }else if id is Dictionary<String, Any> {
+                    return (id as! Dictionary<String, Any>).myDescription(level: level + 1)
+                }
+            }
+        }
         let tempStr1 = self.replacingOccurrences(of: "\\u", with: "\\U")
         let tempStr2 = tempStr1.replacingOccurrences(of: "\"", with: "\\\"")
         let tempStr3 = "\"".appending(tempStr2).appending("\"")
@@ -151,5 +162,8 @@ extension String {
             print(error)
         }
         return returnStr.replacingOccurrences(of: "\\r\\n", with: "\n")
+    }
+    var unicodeStr:String {
+        return self.unicodeStrWith(level: 1)
     }
 }
