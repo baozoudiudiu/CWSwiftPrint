@@ -9,11 +9,11 @@ Pod::Spec.new do |s|
   # ―――  Spec License  ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
   s.license = { :type => "Apache-2.0", :file => "LICENSE" }
   # ――― Author Metadata  ――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
-  s.author = { "forkingdog group" => "https://github.com/forkingdog" }
+  s.author = { "forkingdog group" => "https://github.com/baozoudiudiu" }
   # ――― Platform Specifics ――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
-  s.platform = :ios, "6.0"
+  s.platform = :ios, "8.0"
   # ――― Source Location ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
-  s.source = { :git => "https://github.com/baozoudiudiu/CWSwiftPrint.git", :tag => s.version.to_s }
+  s.source = { :git => "https://github.com/baozoudiudiu/CWSwiftPrint.git", :tag => s.version }
   # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
   s.source_files  = "CWLog/"
   # ――― Project Settings ――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
