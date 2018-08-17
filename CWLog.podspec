@@ -4,7 +4,6 @@ Pod::Spec.new do |s|
   s.version       = "1.0.1"
   s.summary       = "Tool : swift项目中接口返回数据带中文,在控制栏显示unicode编码问题.使用该工具类可以正常展示中文"
   s.swift_version = '3.2'
-  s.description  = "swift项目中接口返回数据带中文,在控制栏显示unicode编码问题.使用该工具类可以正常展示中文"
   s.homepage     = "https://github.com/baozoudiudiu/CWSwiftPrint"
 
   # ―――  Spec License  ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
