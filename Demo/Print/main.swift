@@ -17,5 +17,6 @@ let dic = ["key1" : "\\U6d4b\\U8bd5",
     ] as [String : Any]
 
 ///两种方式打印都可以
+print(dic.myDescription(level: 0))
 //使用自定义log函数
 CWLog(dic)

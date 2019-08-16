@@ -8,13 +8,13 @@
 
 import Foundation
 
-protocol LogLevel {
+public protocol LogLevel {
     func myDescription(level: Int) -> String
 }
 
 //封装的日志输出功能（T表示不指定日志信息参数类型）
-func CWLog<T>(_ message:T, file:String = #file, function:String = #function,
-              line:Int = #line) {
+public func CWLog<T>(_ message:T, file:String = #file, function:String = #function,
+                     line:Int = #line) {
     #if DEBUG
     let fileName = (file as NSString).lastPathComponent
     if message is Dictionary<String, Any> {
@@ -69,7 +69,7 @@ extension Dictionary: LogLevel {
         return str
     }
     
-    func myDescription(level: Int) -> String{
+    public func myDescription(level: Int) -> String{
         var str = ""
         var tab = ""
         for _ in 0..<level {
@@ -94,7 +94,7 @@ extension Dictionary: LogLevel {
 }
 
 extension Array: LogLevel {
-    func myDescription(level: Int) -> String {
+    public func myDescription(level: Int) -> String {
         var str = ""
         var tab = ""
         str.append(contentsOf: "[\n")
