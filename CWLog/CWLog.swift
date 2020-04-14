@@ -21,14 +21,16 @@ public func CWLog<T>(_ message:T, file:String = #file, function:String = #functi
         print("[\(fileName):line:\(line)]- \((message as! Dictionary<String, Any>).myDescription(level: 0))")
     }else if message is Array<Any> {
         print("[\(fileName):line:\(line)]- \((message as! Array<Any> ).myDescription(level: 0))")
-    }else if message is CustomStringConvertible {
+    }else if message is String {
+        let str = (message as! String).unicodeStr
+        print("[\(fileName):line:\(line)]- \"\(str)\"")
+    } else if message is CustomStringConvertible {
         print("[\(fileName):line:\(line)]- \((message as! CustomStringConvertible).description)")
     }else {
         print("[\(fileName):line:\(line)]- \(message)")
     }
     #endif
 }
-
 
 // MARK: - 重写可选型description
 extension Optional: CustomStringConvertible {

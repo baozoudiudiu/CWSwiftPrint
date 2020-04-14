@@ -14,21 +14,23 @@ public protocol LogLevel {
 
 //封装的日志输出功能（T表示不指定日志信息参数类型）
 public func CWLog<T>(_ message:T, file:String = #file, function:String = #function,
-              line:Int = #line) {
+                     line:Int = #line) {
     #if DEBUG
     let fileName = (file as NSString).lastPathComponent
     if message is Dictionary<String, Any> {
         print("[\(fileName):line:\(line)]- \((message as! Dictionary<String, Any>).myDescription(level: 0))")
     }else if message is Array<Any> {
         print("[\(fileName):line:\(line)]- \((message as! Array<Any> ).myDescription(level: 0))")
-    }else if message is CustomStringConvertible {
+    }else if message is String {
+        let str = (message as! String).unicodeStr
+        print("[\(fileName):line:\(line)]- \"\(str)\"")
+    } else if message is CustomStringConvertible {
         print("[\(fileName):line:\(line)]- \((message as! CustomStringConvertible).description)")
     }else {
         print("[\(fileName):line:\(line)]- \(message)")
     }
     #endif
 }
-
 
 // MARK: - 重写可选型description
 extension Optional: CustomStringConvertible {
